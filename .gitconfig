@@ -28,6 +28,7 @@
     autocrlf = input
     pager = less -FRSX
     whitespace = fix
+    excludesfile = /home/hrangan/.gitignore
 [log]
     date = local
 [http]
