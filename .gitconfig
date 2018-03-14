@@ -1,0 +1,34 @@
+[user]
+    name = Harshavardhan Rangan
+    email = hvardhan.r@gmail.com
+[github]
+    user = hrangan
+[apply]
+    whitespace = fix
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    l = log --graph --abbrev-commit --date=relative
+    what = whatchanged -p
+    df = diff --word-diff=color
+    staged = diff --cached
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    ui = always
+    status = auto
+    pager = true
+[format]
+    pretty="%C(white)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+[core]
+    editor = /usr/bin/vim
+    autocrlf = input
+    pager = less -FRSX
+    whitespace = fix
+[log]
+    date = local
+[http]
+    sslverify = false

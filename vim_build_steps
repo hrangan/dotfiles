@@ -1,0 +1,9 @@
+# Steps to configure vim 8 from source with +clipboard
+sudo apt-get install libxt-dev libsm-dev libxpm-dev libx11-dev libxtst-dev
+./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-pythoninterp=yes \
+            --with-python-config-dir=/usr/local/lib/python2.7/config \
+            --prefix=/usr/local \
+            --enable-gui=auto \
+            --enable-gtk2-check --with-x
