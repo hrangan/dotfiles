@@ -5,7 +5,7 @@ set nocompatible                      " Safer, possibly redundant
 filetype off                          " Required by Vundle
 
 set rtp+=~/.vim/bundle/Vundle.vim     " Set up Vundle's runtime path
-call vundle#begin()
+call vundle#begin()                   " Install plugins with '$ vim +PluginInstall +qall'
 
 Plugin 'VundleVim/Vundle.vim'         " Let Vundle manage itself
 
@@ -42,7 +42,7 @@ set ignorecase                        " Defaults to case insensitive search
 set backspace=indent,eol,start        " (optional) Hack to make the backspace button work
 set hlsearch                          " Highlights all search results
 set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
-" set mouse=a                           " Enables scrolling with the mouse
+set mouse=a                           " Enables scrolling with the mouse
 " set incsearch                         " Incremental search begins searching as you type
 
 " ==================
