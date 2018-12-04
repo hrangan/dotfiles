@@ -1,10 +1,10 @@
 URxvt*scrollWithBuffer: true
 URxvt.scrollBar: false
 
-URxvt.font: xft:Droid Sans Mono for Powerline:pixelsize=14:Regular
-URxvt.boldFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Bold
-URxvt.italicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Italic
-URxvt.boldItalicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Bold:Italic
+URxvt.font: xft:Droid Sans Mono Slashed for Powerline:pixelsize=14:Regular
+URxvt.boldFont: xft:Droid Sans Mono Slashed for Powerline:pixelsize=14:Bold
+URxvt.italicFont: xft:Droid Sans Mono Slashed for Powerline:pixelsize=14:Italic
+URxvt.boldItalicFont: xft:Droid Sans Mono Slashed for Powerline:pixelsize=14:Bold:Italic
 URxvt.letterSpace: -1
 
 URxvt.perl-ext-common:        default,xkr-clipboard
