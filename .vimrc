@@ -12,8 +12,9 @@ Plugin 'VundleVim/Vundle.vim'         " Let Vundle manage itself
 " User plugins
 Plugin 'scrooloose/nerdtree'          " NERDTree
 Plugin 'vim-airline/vim-airline'      " Airline
-Plugin 'kien/ctrlp.vim'               "CtrlP
-Plugin 'vim-syntastic/syntastic'      " Syntastic
+Plugin 'junegunn/fzf'                 " Command line fuzzy finder (requires Ag)
+Plugin 'junegunn/fzf.vim'             " fzf.vim wrapper for fzf
+Plugin 'w0rp/ale'                     " Asynchronous Lint Engine
 Plugin 'kien/rainbow_parentheses.vim' " RainbowParentheses
 Plugin 'bling/vim-bufferline'         " Bufferline
 Plugin 'morhetz/gruvbox'              " Gruvbox
@@ -91,33 +92,35 @@ command L NERDTreeToggle  " :L toggles NERDTree on and off
 let g:airline_theme='gruvbox'
 " let g:airline_powerline_fonts = 1
 
-"CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-set wildignore+=*.pyc
-" Map Ctrl-K to search the buffer
-nnoremap <C-K> :CtrlPBuffer<CR>
+" fzf.vim
+" Replaces fzf command with ag. This ensures .gitignore is respected
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" ; opens buffers, \\ opens file search and \t opens tag search
+nmap ; :Buffers<CR>
+nmap <Leader>\ :Files<CR>
+nmap <Leader>t :Tags<CR>
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq =0
-let g:syntastic_python_checkers = ['pyflakes', 'pycodestyle']
-" let g:syntastic_quiet_messages = { "type": "style" }
+" Asynchronous Lint Engine
+let g:ale_linters = {'python': ['pycodestyle', 'flake8']}
+" Checks errors only in normal mode or when leaving insert mode
+" Lint delay can be safely reduced since checking on <CR> is disabled
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 10
+" Ctrl-j/k to quickly move between issues in a file
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" All style errors and warnings are merged into one style
+let g:ale_sign_style_error = '--'
+let g:ale_set_highlights = 1
+highlight link ALEStyleErrorSign AleWarningSign
 
 " RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-" Bufferline
-" This is the default behaviour. This is here as a reminder to install
-" bufferline on new systems
-let g:airline#extensions#bufferline#enabled = 1
 
 " Gruvbox
 let g:gruvbox_contrast_dark = 'hard'
