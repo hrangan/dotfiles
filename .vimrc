@@ -15,6 +15,7 @@ Plugin 'vim-airline/vim-airline'      " Airline
 Plugin 'junegunn/fzf'                 " Command line fuzzy finder (requires Ag)
 Plugin 'junegunn/fzf.vim'             " fzf.vim wrapper for fzf
 Plugin 'w0rp/ale'                     " Asynchronous Lint Engine
+Plugin 'tpope/vim-commentary'         " commentary.vim
 Plugin 'kien/rainbow_parentheses.vim' " RainbowParentheses
 Plugin 'bling/vim-bufferline'         " Bufferline
 Plugin 'morhetz/gruvbox'              " Gruvbox
