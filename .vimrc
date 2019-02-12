@@ -50,6 +50,9 @@ set mouse=a                           " Enables scrolling with the mouse
 " ===== EXTRAS =====
 " ==================
 
+" Remap <Leader>
+let mapleader=";"
+
 " Displays tabs, trailing spaces, etc
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
@@ -84,7 +87,7 @@ nnoremap <expr> N  'nN'[v:searchforward]
 " NERDTree
 let NERDTreeWinPos="right"
 let NERDTreeIgnore=['\.pyc$']
-command L NERDTreeToggle  " :L toggles NERDTree on and off
+nmap <Leader>l :NERDTreeToggle<CR>
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
 
@@ -96,9 +99,8 @@ let g:airline_theme='gruvbox'
 " Replaces fzf command with ag. This ensures .gitignore is respected
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " ; opens buffers, \\ opens file search and \t opens tag search
-nmap ; :Buffers<CR>
-nmap <Leader>\ :Files<CR>
-nmap <Leader>t :Tags<CR>
+nmap <Leader>; :Buffers<CR>
+nmap <Leader>o :Files<CR>
 
 " Asynchronous Lint Engine
 let g:ale_linters = {'python': ['pycodestyle', 'flake8']}
