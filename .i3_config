@@ -48,10 +48,10 @@ bindsym $mod+d exec dmenu_run -b -i -fn "Droid Sans Mono for Powerline-12" -p ":
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-# bindsym $mod+j focus left
-# bindsym $mod+k focus down
-# bindsym $mod+l focus up
-# bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -60,10 +60,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -72,7 +72,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -111,6 +111,18 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+
+# Numpad for workspace movement
+bindsym $mod+KP_End workspace 1
+bindsym $mod+KP_Down workspace 2
+bindsym $mod+KP_Next workspace 3
+bindsym $mod+KP_Left workspace 4
+bindsym $mod+KP_Begin workspace 5
+bindsym $mod+KP_Right workspace 6
+bindsym $mod+KP_Home workspace 7
+bindsym $mod+KP_Up workspace 8
+bindsym $mod+KP_Prior workspace 9
+bindsym $mod+KP_Insert workspace 0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1

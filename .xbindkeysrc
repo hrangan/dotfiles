@@ -73,7 +73,7 @@
 "amixer -c 1 sset Master 3+"
     Mod2 + XF86AudioRaiseVolume
 "lock"
-    m:0x52 + c:46
+    m:0x50 + c:24
 "uuid"
     F12
 
