@@ -1,0 +1,3 @@
+#!/bin/bash
+uuid=`python -c "import uuid;print str(uuid.uuid4())"`
+printf $uuid | xclip -selection clipboard
