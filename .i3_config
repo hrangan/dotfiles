@@ -9,8 +9,10 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-#exec /home/hrangan/.set_correct_resolution.sh
-exec --no-startup-id nitrogen --restore
+# Choose one of these, since orient_screens calls
+# `nitrogen --restore` internally
+#exec /home/hrangan/.local/bin/orient_screens
+#exec --no-startup-id nitrogen --restore
 exec --no-startup-id xbindkeys -p
 exec --no-startup-id autocutsel
 
@@ -42,6 +44,8 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -b -i -fn "Droid Sans Mono for Powerline-12" -p ":|:"
+bindsym $mod+q exec /home/hrangan/.local/bin/lock
+bindsym F12 exec /home/hrangan/.local/bin/uuid
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
