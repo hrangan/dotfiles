@@ -1,0 +1,6 @@
+#!/bin/bash -x
+xrandr --output VGA-1 --auto --left-of DP-1 --rotate normal
+xrandr --output DP-1 --rotate left
+xrandr --fb 2730x1680
+xrandr --output DP-1 --pos 1680x0
+nitrogen --restore

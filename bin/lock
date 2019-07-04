@@ -1,0 +1,5 @@
+#!/bin/bash
+scrot /tmp/lock.png
+convert /tmp/lock.png -blur 0x6 /tmp/lock.png
+#composite -gravity center /home/hrangan/Pictures/circlelock.png  /tmp/lock.png /tmp/lock.png
+i3lock -i /tmp/lock.png
