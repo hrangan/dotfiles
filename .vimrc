@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'         " Let Vundle manage itself
 
 " User plugins
 Plugin 'scrooloose/nerdtree'          " NERDTree
-Plugin 'vim-airline/vim-airline'      " Airline
+" Plugin 'vim-airline/vim-airline'      " Airline
 Plugin 'junegunn/fzf'                 " Command line fuzzy finder (requires Ag)
 Plugin 'junegunn/fzf.vim'             " fzf.vim wrapper for fzf
 Plugin 'w0rp/ale'                     " Asynchronous Lint Engine
@@ -19,6 +19,7 @@ Plugin 'tpope/vim-commentary'         " commentary.vim
 Plugin 'kien/rainbow_parentheses.vim' " RainbowParentheses
 Plugin 'bling/vim-bufferline'         " Bufferline
 Plugin 'morhetz/gruvbox'              " Gruvbox
+" Plugin 'challenger-deep-theme/vim'    " Challenger Deep
 Plugin 'xolox/vim-easytags'           " Easytags
 Plugin 'xolox/vim-misc'               " Easytags dependency
 
@@ -89,8 +90,16 @@ nnoremap <expr> N  'nN'[v:searchforward]
 let NERDTreeWinPos="right"
 let NERDTreeIgnore=['\.pyc$']
 nmap <Leader>l :NERDTreeToggle<CR>
+" Disable arrow icons
+" let g:NERDTreeDirArrowExpandable = '+'
+" let g:NERDTreeDirArrowCollapsible = '~'
+"
+" Auto-open NERDTree and switch back to the file
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
+"
+" Close vim if only NERDTree is open
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Airline
 let g:airline_theme='gruvbox'
@@ -128,9 +137,19 @@ au Syntax * RainbowParenthesesLoadBraces
 " Gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 silent colorscheme gruvbox
+" silent colorscheme challenger_deep
 
 " Easytags
 let g:easytags_auto_highlight = 0
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
 set cpoptions+=d
+
+" Bufferline
+let g:bufferline_rotate = 1
+let g:bufferline_fixed_index = 0
+let g:bufferline_echo = 0
+" statusline integration if vim-airline is disabled
+autocmd VimEnter *
+\ let &statusline='%{bufferline#refresh_status()}'
+  \ .bufferline#get_status_string()
