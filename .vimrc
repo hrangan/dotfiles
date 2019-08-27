@@ -47,6 +47,7 @@ set hlsearch                          " Highlights all search results
 set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
 " set incsearch                         " Incremental search begins searching as you type
+set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 " ==================
 " ===== EXTRAS =====

@@ -7,9 +7,9 @@ URxvt.italicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Italic
 URxvt.boldItalicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Bold:Italic
 URxvt.letterSpace: -1
 
-URxvt.perl-ext-common:        default,xkr-clipboard
+URxvt.perl-ext-common:        default,clipboard,selection-to-clipboard
 URxvt.iso14755:               false
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+Xcursor.size: 8
 
 !-----------------------------------------------------------------------------
 ! File: gruvbox-urxvt256.xresources
