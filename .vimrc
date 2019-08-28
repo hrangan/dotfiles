@@ -1,28 +1,27 @@
-" ==================
-" ===== VUNDLE =====
-" ==================
-filetype off                          " Required by Vundle
+" =============================
+" ===== Plugin Management =====
+" =============================
 
-set rtp+=~/.vim/bundle/Vundle.vim     " Set up Vundle's runtime path
-call vundle#begin()                   " Install plugins with '$ vim +PluginInstall +qall'
+" Install vim-plug if it's missing
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-Plugin 'VundleVim/Vundle.vim'         " Let Vundle manage itself
-
-" User plugins
-Plugin 'scrooloose/nerdtree'          " NERDTree
-" Plugin 'vim-airline/vim-airline'      " Airline
-Plugin 'junegunn/fzf'                 " Command line fuzzy finder (requires Ag)
-Plugin 'junegunn/fzf.vim'             " fzf.vim wrapper for fzf
-Plugin 'dense-analysis/ale'           " Asynchronous Lint Engine
-Plugin 'kien/rainbow_parentheses.vim' " RainbowParentheses
-Plugin 'morhetz/gruvbox'              " Gruvbox
-Plugin 'xolox/vim-easytags'           " Easytags, requires `apt install exuberant-ctags`
-Plugin 'xolox/vim-misc'               " Easytags dependency
-Plugin 'bling/vim-bufferline'         " Bufferline
-
-" End vundle
-call vundle#end()
-filetype indent plugin on             " Required by Vundle, redundant by the next section
+" Install custom plugins
+call plug#begin('~/.vim/bundles')
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
+" Plug 'vim-airline/vim-airline'                             " vim-airline
+Plug 'junegunn/fzf', {'do': './install --all'}             " Fuzzy finder (Requires silversearcher-ag)
+    Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
+Plug 'dense-analysis/ale', {'for': 'python'}               " Asynchronous lint engine
+Plug 'kien/rainbow_parentheses.vim'                        " Rainbow parentheses
+Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
+Plug 'xolox/vim-misc'                                      " Automatic ctags (Requires exuberant-ctags)
+    Plug 'xolox/vim-easytags'
+Plug 'bling/vim-bufferline'                                " Bufferline support
+call plug#end()
 
 " ==================
 " ===== BASICS =====
