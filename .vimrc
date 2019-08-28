@@ -1,7 +1,6 @@
 " ==================
 " ===== VUNDLE =====
 " ==================
-set nocompatible                      " Safer, possibly redundant
 filetype off                          " Required by Vundle
 
 set rtp+=~/.vim/bundle/Vundle.vim     " Set up Vundle's runtime path
@@ -14,14 +13,12 @@ Plugin 'scrooloose/nerdtree'          " NERDTree
 " Plugin 'vim-airline/vim-airline'      " Airline
 Plugin 'junegunn/fzf'                 " Command line fuzzy finder (requires Ag)
 Plugin 'junegunn/fzf.vim'             " fzf.vim wrapper for fzf
-Plugin 'w0rp/ale'                     " Asynchronous Lint Engine
-Plugin 'tpope/vim-commentary'         " commentary.vim
+Plugin 'dense-analysis/ale'           " Asynchronous Lint Engine
 Plugin 'kien/rainbow_parentheses.vim' " RainbowParentheses
-Plugin 'bling/vim-bufferline'         " Bufferline
 Plugin 'morhetz/gruvbox'              " Gruvbox
-" Plugin 'challenger-deep-theme/vim'    " Challenger Deep
-Plugin 'xolox/vim-easytags'           " Easytags
+Plugin 'xolox/vim-easytags'           " Easytags, requires `apt install exuberant-ctags`
 Plugin 'xolox/vim-misc'               " Easytags dependency
+Plugin 'bling/vim-bufferline'         " Bufferline
 
 " End vundle
 call vundle#end()
@@ -32,12 +29,13 @@ filetype indent plugin on             " Required by Vundle, redundant by the nex
 " ==================
 
 syntax on                             " Syntax highlighting
+set autoindent                        " Enables indentation for plain text
 filetype indent plugin on             " Filetype detection
 set tabstop=8                         " Number of spaces that a <Tab> in the file counts for
 set expandtab                         " Replace tabs with spaces
 set shiftwidth=4                      " Number of spaces to use for each auto indent
 set softtabstop=4                     " Number of spaces to expand tabs into
-set nu                                " Display line numbers
+set number                            " Display line numbers
 set ls=2                              " Always show the status line
 set background=dark                   " Set this to light or dark depending on your terminal
 set noswapfile                        " (optional) Does not create .swp files
@@ -46,7 +44,6 @@ set backspace=indent,eol,start        " (optional) Hack to make the backspace bu
 set hlsearch                          " Highlights all search results
 set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
-" set incsearch                         " Incremental search begins searching as you type
 set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 " ==================
@@ -59,13 +56,13 @@ let mapleader=";"
 " Displays tabs, trailing spaces, etc
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-autocmd filetype html,xml set listchars-=tab:>.  " Disable explicit tabs for html/xml
+autocmd! filetype html,xml set listchars-=tab:>.  " Disable explicit tabs for html/xml
 
 " Deletes all trailing whitespaces (http://vim.wikia.com/wiki/Remove_unwanted_spaces)
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Spell checking and line wrapping for git commits
-autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd! Filetype gitcommit setlocal spell textwidth=72
 
 " Map Ctrl+Arrow key to work movement
 map <ESC>Oa <C-Up>
@@ -87,33 +84,30 @@ nnoremap <expr> N  'nN'[v:searchforward]
 " ==== PLUGINS  ====
 " ==================
 
-" NERDTree
+" ==== NERDTree (scrooloose/nerdtree) ====
 let NERDTreeWinPos="right"
 let NERDTreeIgnore=['\.pyc$']
-nmap <Leader>l :NERDTreeToggle<CR>
+nnoremap <Leader>l :NERDTreeToggle<CR>
 " Disable arrow icons
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '~'
 "
-" Auto-open NERDTree and switch back to the file
-" autocmd VimEnter * NERDTree
-" autocmd VimEnter * wincmd p
-"
 " Close vim if only NERDTree is open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd! \
+"   bufenter * if (winnr("$") == 1 && exists("b:NERDTree") \
+"      && b:NERDTree.isTabTree()) | q | endif
 
-" Airline
-let g:airline_theme='gruvbox'
+" ==== Airline (vim-airline/vim-airline) ====
+" let g:airline_theme='gruvbox'
 " let g:airline_powerline_fonts = 1
 
-" fzf.vim
+" ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" ; opens buffers, \\ opens file search and \t opens tag search
-nmap <Leader>; :Buffers<CR>
-nmap <Leader>o :Files<CR>
+nnoremap <Leader>; :Buffers<CR>
+nnoremap <Leader>o :Files<CR>
 
-" Asynchronous Lint Engine
+" ==== Asynchronous Lint Engine (dense-analysis/ale)====
 let g:ale_linters = {'python': ['pycodestyle', 'flake8']}
 " Checks errors only in normal mode or when leaving insert mode
 " Lint delay can be safely reduced since checking on <CR> is disabled
@@ -127,30 +121,34 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " All style errors and warnings are merged into one style
 let g:ale_sign_style_error = '--'
 let g:ale_set_highlights = 1
-highlight link ALEStyleErrorSign AleWarningSign
+augroup ALEColors
+    " Rationale for highlight augroup
+    " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
+    autocmd!
+    autocmd ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
+augroup END
 
-" RainbowParentheses
+" ==== Rainbow Parentheses (kien/rainbow_parentheses.vim) ====
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" Gruvbox
+" ==== Gruvbox (morhetz/gruvbox) ====
 let g:gruvbox_contrast_dark = 'hard'
 silent colorscheme gruvbox
-" silent colorscheme challenger_deep
 
-" Easytags
+" ==== Easytags (xolox/vim-easytags) ====
 let g:easytags_auto_highlight = 0
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
 set cpoptions+=d
 
-" Bufferline
+" ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = 0
 let g:bufferline_echo = 0
 " statusline integration if vim-airline is disabled
-autocmd VimEnter *
+autocmd! VimEnter *
 \ let &statusline='%{bufferline#refresh_status()}'
   \ .bufferline#get_status_string()
