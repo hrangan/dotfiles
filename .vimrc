@@ -23,9 +23,9 @@ Plug 'xolox/vim-misc'                                      " Automatic ctags (Re
 Plug 'bling/vim-bufferline'                                " Bufferline support
 call plug#end()
 
-" ==================
-" ===== BASICS =====
-" ==================
+" ==========================
+" ===== BASIC SETTINGS =====
+" ==========================
 
 syntax on                             " Syntax highlighting
 set autoindent                        " Enables indentation for plain text
@@ -45,9 +45,9 @@ set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
 set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
-" ==================
-" ===== EXTRAS =====
-" ==================
+" ==========================
+" ===== EXTRA SETTINGS =====
+" ==========================
 
 " Remap <Leader>
 let mapleader=";"
@@ -79,9 +79,9 @@ map! <ESC>Oc <C-Right>
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
-" ==================
-" ==== PLUGINS  ====
-" ==================
+" =========================
+" ==== PLUGIN SETTINGS ====
+" =========================
 
 " ==== NERDTree (scrooloose/nerdtree) ====
 let NERDTreeWinPos="right"
