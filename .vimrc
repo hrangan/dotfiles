@@ -87,14 +87,13 @@ nnoremap <expr> N  'nN'[v:searchforward]
 let NERDTreeWinPos="right"
 let NERDTreeIgnore=['\.pyc$']
 nnoremap <Leader>l :NERDTreeToggle<CR>
+" Close vim if only NERDTree is open
+autocmd bufenter *
+\ if (winnr("$") == 1 && exists("b:NERDTree") &&
+    \ b:NERDTree.isTabTree()) | q | endif
 " Disable arrow icons
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '~'
-"
-" Close vim if only NERDTree is open
-" autocmd! \
-"   bufenter * if (winnr("$") == 1 && exists("b:NERDTree") \
-"      && b:NERDTree.isTabTree()) | q | endif
 
 " ==== Airline (vim-airline/vim-airline) ====
 " let g:airline_theme='gruvbox'
