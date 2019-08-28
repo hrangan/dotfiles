@@ -129,10 +129,13 @@ augroup ALEColors
 augroup END
 
 " ==== Rainbow Parentheses (kien/rainbow_parentheses.vim) ====
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+augroup Rainbow
+    autocmd!
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 " ==== Gruvbox (morhetz/gruvbox) ====
 let g:gruvbox_contrast_dark = 'hard'
