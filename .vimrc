@@ -35,7 +35,7 @@ set expandtab                         " Replace tabs with spaces
 set shiftwidth=4                      " Number of spaces to use for each auto indent
 set softtabstop=4                     " Number of spaces to expand tabs into
 set number                            " Display line numbers
-set ls=2                              " Always show the status line
+set laststatus=2                      " Always show the status line
 set background=dark                   " Set this to light or dark depending on your terminal
 set noswapfile                        " (optional) Does not create .swp files
 set ignorecase                        " Defaults to case insensitive search
