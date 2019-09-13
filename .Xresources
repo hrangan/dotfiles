@@ -1,11 +1,11 @@
 URxvt*scrollWithBuffer: true
 URxvt.scrollBar: false
 
-URxvt.font: xft:Droid Sans Mono for Powerline:pixelsize=14:Regular
-URxvt.boldFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Bold
-URxvt.italicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Italic
-URxvt.boldItalicFont: xft:Droid Sans Mono for Powerline:pixelsize=14:Bold:Italic
-URxvt.letterSpace: -1
+URxvt.font: xft:Fira Mono:pixelsize=15:Regular
+URxvt.boldFont: xft:Fira Mono:pixelsize=15:Bold
+URxvt.italicFont: xft:Fira Mono:pixelsize=15:Italic
+URxvt.boldItalicFont: xft:Fira Mono:pixelsize=15:Bold:Italic
+! URxvt.letterSpace: -1
 
 URxvt.perl-ext-common:        default,clipboard,selection-to-clipboard
 URxvt.iso14755:               false
