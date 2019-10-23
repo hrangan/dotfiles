@@ -41,7 +41,7 @@ export PATH=$HOME/local/bin:$HOME/local/sbin:$PATH:/sbin
 export PS1='[\h] \w $(jobscount)\$ '
 alias p="/usr/bin/env python"
 
-# Cusomt pager for PostgreSQL
+# Custom pager for PostgreSQL
 export PAGER=less
 export LESS="-iMSx4 -FX"
 

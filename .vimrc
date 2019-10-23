@@ -95,7 +95,7 @@ autocmd bufenter *
 " Disable arrow icons
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '~'
-"
+
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
