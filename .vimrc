@@ -12,7 +12,6 @@ endif
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
-" Plug 'vim-airline/vim-airline'                             " vim-airline
 Plug 'junegunn/fzf', {'do': './install --all'}             " Fuzzy finder (Requires silversearcher-ag)
     Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
 Plug 'dense-analysis/ale', {'for': 'python'}               " Asynchronous lint engine
@@ -21,6 +20,8 @@ Plug 'morhetz/gruvbox'                                     " Gruvbox color schem
 Plug 'xolox/vim-misc'                                      " Automatic ctags (Requires exuberant-ctags)
     Plug 'xolox/vim-easytags'
 Plug 'bling/vim-bufferline'                                " Bufferline support
+Plug 'justinmk/vim-sneak'                                  " Lightweight motions
+Plug 'wellle/targets.vim'                                  " More text objects to move to
 call plug#end()
 
 " ==========================
@@ -94,11 +95,7 @@ autocmd bufenter *
 " Disable arrow icons
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '~'
-
-" ==== Airline (vim-airline/vim-airline) ====
-" let g:airline_theme='gruvbox'
-" let g:airline_powerline_fonts = 1
-
+"
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -153,3 +150,8 @@ let g:bufferline_echo = 0
 autocmd! VimEnter *
 \ let &statusline='%{bufferline#refresh_status()}'
   \ .bufferline#get_status_string()
+
+" ==== Vim Sneak (justinmk/vim-sneak ====
+let g:sneak#s_next = 1  " Press `s` to move to the next match
+map r <Plug>Sneak_s
+map R <Plug>Sneak_S
