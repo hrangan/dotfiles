@@ -1,26 +1,11 @@
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+#
+# ~/.bashrc
+#
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100000
-HISTFILESIZE=200000
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-fi
+alias ls='ls --color=auto'
 
 # Single ssh-agent session
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -36,14 +21,16 @@ jobscount() {
   ((stopped)) && echo -n "(${stopped}) "
 }
 
-# Basic paths
-export PATH=$HOME/local/bin:$HOME/local/sbin:$PATH:/sbin
+export PATH=$HOME/.local/bin:$HOME/.local/sbin:$PATH:/sbin
 export PS1='[\h] \w $(jobscount)\$ '
-alias p="/usr/bin/env python"
+export LC_ALL="en_US.UTF-8"
+export HISTSIZE=10000
+export HISTFILESIZE=$HISTSIZE
 
-# Custom pager for PostgreSQL
-export PAGER=less
-export LESS="-iMSx4 -FX"
+# Basic aliases
+alias p="/usr/bin/env python"
+alias ll="ls -l"
+# alias vim="nvim"
 
 # Git auto completion
 . ~/.git-completion.bash

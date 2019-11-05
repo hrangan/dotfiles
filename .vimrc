@@ -14,8 +14,8 @@ call plug#begin('~/.vim/bundles')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
 Plug 'junegunn/fzf', {'do': './install --all'}             " Fuzzy finder (Requires silversearcher-ag)
     Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
-Plug 'dense-analysis/ale', {'for': 'python'}               " Asynchronous lint engine
-Plug 'kien/rainbow_parentheses.vim'                        " Rainbow parentheses
+Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
+Plug 'junegunn/rainbow_parentheses.vim'                        " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
 Plug 'xolox/vim-misc'                                      " Automatic ctags (Requires exuberant-ctags)
     Plug 'xolox/vim-easytags'
@@ -44,7 +44,9 @@ set backspace=indent,eol,start        " (optional) Hack to make the backspace bu
 set hlsearch                          " Highlights all search results
 set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
-set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
+set noincsearch                       " Disable incremental search (on by default in neovim)
+set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
+" set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 " ==========================
 " ===== EXTRA SETTINGS =====
@@ -85,20 +87,20 @@ nnoremap <expr> N  'nN'[v:searchforward]
 " =========================
 
 " ==== NERDTree (scrooloose/nerdtree) ====
-let NERDTreeWinPos="right"
+let NERDTreeWinPos="left"
 let NERDTreeIgnore=['\.pyc$']
 nnoremap <Leader>l :NERDTreeToggle<CR>
 " Close vim if only NERDTree is open
 autocmd bufenter *
 \ if (winnr("$") == 1 && exists("b:NERDTree") &&
     \ b:NERDTree.isTabTree()) | q | endif
-" Disable arrow icons
-" let g:NERDTreeDirArrowExpandable = '+'
-" let g:NERDTreeDirArrowCollapsible = '~'
+" Default arrow icons, replace if necessary
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
 
@@ -109,7 +111,7 @@ let g:ale_linters = {'python': ['pycodestyle', 'flake8']}
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 10
+let g:ale_lint_delay = 50
 " Ctrl-j/k to quickly move between issues in a file
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -123,13 +125,11 @@ augroup ALEColors
     autocmd ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
 augroup END
 
-" ==== Rainbow Parentheses (kien/rainbow_parentheses.vim) ====
-augroup Rainbow
+" ==== Rainbow Parentheses (junegunn/rainbow_parentheses.vim) ====
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+augroup Raindbow
     autocmd!
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
+    autocmd VimEnter * RainbowParentheses
 augroup END
 
 " ==== Gruvbox (morhetz/gruvbox) ====
