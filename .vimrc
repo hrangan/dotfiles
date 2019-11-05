@@ -12,7 +12,7 @@ endif
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
-Plug 'junegunn/fzf', {'do': './install --all'}             " Fuzzy finder (Requires silversearcher-ag)
+Plug 'junegunn/fzf', {'do': './install --bin'}             " Fuzzy finder (Requires silversearcher-ag)
     Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
 Plug 'junegunn/rainbow_parentheses.vim'                        " Rainbow parentheses
