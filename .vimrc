@@ -140,6 +140,7 @@ silent colorscheme gruvbox
 let g:easytags_auto_highlight = 0
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
+" let g:easytags_suppress_ctags_warning = 1  " for when universal-ctags is installed instead of exuberant-ctags
 set cpoptions+=d
 
 " ==== Bufferline (bling/vim-bufferline) ====
