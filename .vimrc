@@ -101,6 +101,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
 " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
 nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
 
