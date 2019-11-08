@@ -9,10 +9,10 @@ alias ls='ls --color=auto'
 
 # Single ssh-agent session
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
+    ssh-agent > $HOME/.ssh-agent-thing
 fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<~/.ssh-agent-thing)"
+    eval "$(<$HOME/.ssh-agent-thing)"
 fi
 
 # Display count of stopped processes (Ctrl+Z)
@@ -21,16 +21,24 @@ jobscount() {
   ((stopped)) && echo -n "(${stopped}) "
 }
 
-export PATH=$HOME/.local/bin:$HOME/.local/sbin:$PATH:/sbin
+# VARIABLES
 export PS1='[\h] \w $(jobscount)\$ '
-export LC_ALL="en_US.UTF-8"
+export PATH=$HOME/.local/bin:$HOME/.local/sbin:$PATH:/sbin
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
+export LC_ALL="en_US.UTF-8"
 
-# Basic aliases
+# ALIASES
 alias p="/usr/bin/env python"
 alias ll="ls -l"
-# alias vim="nvim"
+if command -v nvim > /dev/null 2>&1; then
+    alias vim="nvim"
+fi
+if command -v rg > /dev/null 2>&1; then
+    alias ffile='rg --files --hidden --no-ignore-vcs | rg "$@"'
+fi
 
-# Git auto completion
-. ~/.git-completion.bash
+# SCRIPTS
+if [ -f $HOME/.git-completion.bash ]; then
+    source $HOME/.git-completion.bash
+fi

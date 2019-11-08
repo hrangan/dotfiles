@@ -12,12 +12,12 @@ endif
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
-Plug 'junegunn/fzf', {'do': './install --bin'}             " Fuzzy finder (Requires silversearcher-ag)
+Plug 'junegunn/fzf', {'do': './install --bin'}             " Fuzzy finder
     Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
-Plug 'junegunn/rainbow_parentheses.vim'                        " Rainbow parentheses
+Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
-Plug 'xolox/vim-misc'                                      " Automatic ctags (Requires exuberant-ctags)
+Plug 'xolox/vim-misc'                                      " Automatic ctags
     Plug 'xolox/vim-easytags'
 Plug 'bling/vim-bufferline'                                " Bufferline support
 Plug 'justinmk/vim-sneak'                                  " Lightweight motions
@@ -55,6 +55,10 @@ set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking b
 " Remap <Leader>
 let mapleader=";"
 
+" Move correctly across long, wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " Displays tabs, trailing spaces, etc
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
@@ -78,7 +82,7 @@ map! <ESC>Ob <C-Down>
 map! <ESC>Od <C-Left>
 map! <ESC>Oc <C-Right>
 
-" n always searches forward, N backwards
+" Remap n/N to always search forwards/backwards respectively
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
@@ -100,8 +104,11 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
+if executable('rg')
+    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
+else
+    echoerr "Install ripgrep to enable buffer lists in fzf"
+endif
 nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
 
@@ -141,19 +148,26 @@ silent colorscheme gruvbox
 let g:easytags_auto_highlight = 0
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
-" let g:easytags_suppress_ctags_warning = 1  " for when universal-ctags is installed instead of exuberant-ctags
 set cpoptions+=d
+
+" Disable vim-easytag warnings when Universal Ctags is present in place of
+" Exuberant Ctags. A bug in vim-easytags doesn't identify Universal Ctags
+" correctly.
+if (matchstr(execute('!ctags --version'), 'Universal Ctags'))=='Universal Ctags'
+  let g:easytags_suppress_ctags_warning = 1
+endif
 
 " ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = 0
 let g:bufferline_echo = 0
-" statusline integration if vim-airline is disabled
+" Show buffers in the status line, a lighter alternative to airline/lightline
 autocmd! VimEnter *
 \ let &statusline='%{bufferline#refresh_status()}'
   \ .bufferline#get_status_string()
 
-" ==== Vim Sneak (justinmk/vim-sneak ====
-let g:sneak#s_next = 1  " Press `s` to move to the next match
+" ==== Vim Sneak (justinmk/vim-sneak) ====
+" Press `s` to move to the next match
+let g:sneak#s_next = 1
 map r <Plug>Sneak_s
 map R <Plug>Sneak_S
