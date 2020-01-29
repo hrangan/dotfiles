@@ -17,11 +17,11 @@ Plug 'junegunn/fzf', {'do': './install --bin'}             " Fuzzy finder
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
 Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
-Plug 'xolox/vim-misc'                                      " Automatic ctags
-    Plug 'xolox/vim-easytags'
 Plug 'bling/vim-bufferline'                                " Bufferline support
 Plug 'justinmk/vim-sneak'                                  " Lightweight motions
 Plug 'wellle/targets.vim'                                  " More text objects to move to
+Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
+Plug 'davidhalter/jedi-vim'                                " Autocompletion (disabled) and jump to definition
 call plug#end()
 
 " ==========================
@@ -47,6 +47,14 @@ set mouse=a                           " Enables scrolling with the mouse
 set noincsearch                       " Disable incremental search (on by default in neovim)
 set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
 " set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
+
+
+" =========================
+" ===== SANITY CHECKS =====
+" =========================
+if executable('rg')!=1
+    echoerr "Install ripgrep to enable buffer lists in fzf"
+endif
 
 " ==========================
 " ===== EXTRA SETTINGS =====
@@ -104,11 +112,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
 " Replaces fzf command with ag. This ensures .gitignore is respected
-if executable('rg')
-    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
-else
-    echoerr "Install ripgrep to enable buffer lists in fzf"
-endif
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
 nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
 
@@ -171,3 +175,6 @@ autocmd! VimEnter *
 let g:sneak#s_next = 1
 map r <Plug>Sneak_s
 map R <Plug>Sneak_S
+
+" ==== Vim Jedi ====
+let g:jedi#completions_enabled = 0
