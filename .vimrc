@@ -22,6 +22,9 @@ Plug 'justinmk/vim-sneak'                                  " Lightweight motions
 Plug 'wellle/targets.vim'                                  " More text objects to move to
 Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
 Plug 'davidhalter/jedi-vim'                                " Autocompletion (disabled) and jump to definition
+Plug 'majutsushi/tagbar'                                   " Show tags and a tagbar
+Plug 'tpope/vim-surround'                                  " Quoting/parenthesizing made simple
+Plug 'tpope/vim-repeat'                                    " Enable repeating supported plugin maps with .
 call plug#end()
 
 " ==========================
@@ -46,6 +49,7 @@ set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
 set noincsearch                       " Disable incremental search (on by default in neovim)
 set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
+set scrolloff=10
 " set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 
@@ -163,12 +167,12 @@ endif
 
 " ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
-let g:bufferline_fixed_index = 0
+let g:bufferline_fixed_index = -1
 let g:bufferline_echo = 0
-" Show buffers in the status line, a lighter alternative to airline/lightline
+" Show buffers and tags in the status line, a lighter alternative to airline/lightline
 autocmd! VimEnter *
-\ let &statusline='%{bufferline#refresh_status()}'
-  \ .bufferline#get_status_string()
+\ let &statusline="%{bufferline#refresh_status()}"
+  \ .bufferline#get_status_string()."%=%{tagbar#currenttag('[%s] ','', 'f')}"
 
 " ==== Vim Sneak (justinmk/vim-sneak) ====
 " Press `s` to move to the next match
@@ -178,3 +182,4 @@ map R <Plug>Sneak_S
 
 " ==== Vim Jedi ====
 let g:jedi#completions_enabled = 0
+let g:jedi#show_call_signatures = 0
