@@ -1,0 +1,14 @@
+syntax on
+filetype indent plugin on
+hi LineNr ctermfg=darkyellow
+hi CursorLine cterm=NONE ctermbg=darkgrey
+
+au FileType * setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 cursorline nu ls=2
+
+augroup vimrc_autocmds
+        autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#596029
+        autocmd BufEnter * match OverLength /\%80v.*/
+augroup END
+
+let NERDTreeWinPos="right"
+command L NERDTreeToggle
