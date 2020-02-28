@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " =============================
 " ===== Plugin Management =====
 " =============================
@@ -6,7 +7,9 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup init
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
 endif
 
 " Install custom plugins
@@ -57,7 +60,11 @@ set scrolloff=10
 " ===== SANITY CHECKS =====
 " =========================
 if executable('rg')!=1
-    echoerr "Install ripgrep to enable buffer lists in fzf"
+    echoerr 'Install ripgrep to enable buffer lists in fzf'
+endif
+
+if !(has('python3') || has('python2'))
+    echoerr 'jedi-vim needs pynvim installled in python''s site-packages'
 endif
 
 " ==========================
@@ -65,7 +72,7 @@ endif
 " ==========================
 
 " Remap <Leader>
-let mapleader=";"
+let mapleader=';'
 
 " Move correctly across long, wrapped lines
 nnoremap j gj
@@ -74,13 +81,17 @@ nnoremap k gk
 " Displays tabs, trailing spaces, etc
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-autocmd! filetype html,xml set listchars-=tab:>.  " Disable explicit tabs for html/xml
+augroup Tabs
+    autocmd! filetype html,xml set listchars-=tab:>.  " Disable explicit tabs for html/xml
+augroup END
 
 " Deletes all trailing whitespaces (http://vim.wikia.com/wiki/Remove_unwanted_spaces)
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Spell checking and line wrapping for git commits
-autocmd! Filetype gitcommit setlocal spell textwidth=72
+augroup GitSpellCheck
+    autocmd! Filetype gitcommit setlocal spell textwidth=72
+augroup END
 
 " Map Ctrl+Arrow key to work movement
 map <ESC>Oa <C-Up>
@@ -103,13 +114,15 @@ nnoremap <expr> N  'nN'[v:searchforward]
 " =========================
 
 " ==== NERDTree (scrooloose/nerdtree) ====
-let NERDTreeWinPos="left"
+let NERDTreeWinPos='left'
 let NERDTreeIgnore=['\.pyc$']
 nnoremap <Leader>l :NERDTreeToggle<CR>
 " Close vim if only NERDTree is open
-autocmd bufenter *
-\ if (winnr("$") == 1 && exists("b:NERDTree") &&
-    \ b:NERDTree.isTabTree()) | q | endif
+augroup NERDTreeClose
+    autocmd bufenter *
+    \ if (winnr("$") == 1 && exists("b:NERDTree") &&
+        \ b:NERDTree.isTabTree()) | q | endif
+augroup END
 " Default arrow icons, replace if necessary
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -143,7 +156,7 @@ augroup END
 
 " ==== Rainbow Parentheses (junegunn/rainbow_parentheses.vim) ====
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-augroup Raindbow
+augroup Rainbow
     autocmd!
     autocmd VimEnter * RainbowParentheses
 augroup END
@@ -161,18 +174,23 @@ set cpoptions+=d
 " Disable vim-easytag warnings when Universal Ctags is present in place of
 " Exuberant Ctags. A bug in vim-easytags doesn't identify Universal Ctags
 " correctly.
-if (matchstr(execute('!ctags --version'), 'Universal Ctags'))=='Universal Ctags'
+if (matchstr(execute('!ctags --version'), 'Universal Ctags'))==#'Universal Ctags'
   let g:easytags_suppress_ctags_warning = 1
 endif
+
+function! ToggleTagnameInStatus()
+endfunction
 
 " ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -1
 let g:bufferline_echo = 0
 " Show buffers and tags in the status line, a lighter alternative to airline/lightline
-autocmd! VimEnter *
-\ let &statusline="%{bufferline#refresh_status()}"
-  \ .bufferline#get_status_string()."%=%{tagbar#currenttag('[%s] ','', 'f')}"
+augroup Bufferline
+    autocmd! VimEnter *
+    \ let &statusline="%{bufferline#refresh_status()}"
+      \ .bufferline#get_status_string()."%=%{tagbar#currenttag('[%s] ','', 'f')}"
+augroup END
 
 " ==== Vim Sneak (justinmk/vim-sneak) ====
 " Press `s` to move to the next match
