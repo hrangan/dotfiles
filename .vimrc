@@ -134,7 +134,8 @@ nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
 
 " ==== Asynchronous Lint Engine (dense-analysis/ale)====
-let g:ale_linters = {'python': ['pycodestyle', 'flake8']}
+let g:ale_linters = {'python': ['pycodestyle', 'flake8'],
+                   \ 'vimscript': ['vint']}
 " Checks errors only in normal mode or when leaving insert mode
 " Lint delay can be safely reduced since checking on <CR> is disabled
 let g:ale_lint_on_text_changed = 'normal'
@@ -178,19 +179,10 @@ if (matchstr(execute('!ctags --version'), 'Universal Ctags'))==#'Universal Ctags
   let g:easytags_suppress_ctags_warning = 1
 endif
 
-function! ToggleTagnameInStatus()
-endfunction
-
 " ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -1
 let g:bufferline_echo = 0
-" Show buffers and tags in the status line, a lighter alternative to airline/lightline
-augroup Bufferline
-    autocmd! VimEnter *
-    \ let &statusline="%{bufferline#refresh_status()}"
-      \ .bufferline#get_status_string()."%=%{tagbar#currenttag('[%s] ','', 'f')}"
-augroup END
 
 " ==== Vim Sneak (justinmk/vim-sneak) ====
 " Press `s` to move to the next match
@@ -201,3 +193,38 @@ map R <Plug>Sneak_S
 " ==== Vim Jedi ====
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 0
+
+" ==========================
+" ==== CUSTOM FUNCTIONS ====
+" ==========================
+
+" ==== Statusline ====
+" Uses vim-bufferline and tagbar to show a statusbar. Default behaviour is to
+" only show the bufferlist, but <Leader>t toggles the tagname at the right
+" side of the statusline
+nnoremap <Leader>t :call ToggleTagnameInStatus()<CR>
+let g:toggle_tagname = 0
+function! ToggleTagnameInStatus()
+    if g:toggle_tagname
+        let g:toggle_tagname = 0
+    else
+        let g:toggle_tagname = 1
+    endif
+endfunction
+
+function! OptionalTagname()
+    if g:toggle_tagname
+        return tagbar#currenttag('[%s] ','', 'f')
+    else
+        return ''
+    endif
+endfunction
+
+augroup Bufferline
+  autocmd VimEnter *
+    \ let &statusline=
+      \ '%{bufferline#refresh_status()}'
+      \ .bufferline#get_status_string()
+      \ .'%='
+      \ .'%{OptionalTagname()}'
+augroup END
