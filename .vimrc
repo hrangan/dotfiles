@@ -205,11 +205,7 @@ let g:jedi#show_call_signatures = 0
 nnoremap <Leader>t :call ToggleTagnameInStatus()<CR>
 let g:toggle_tagname = 0
 function! ToggleTagnameInStatus()
-    if g:toggle_tagname
-        let g:toggle_tagname = 0
-    else
-        let g:toggle_tagname = 1
-    endif
+    let g:toggle_tagname = !g:toggle_tagname
 endfunction
 
 function! OptionalTagname()
