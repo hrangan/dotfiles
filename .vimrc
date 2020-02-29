@@ -47,7 +47,6 @@ set noswapfile                        " (optional) Does not create .swp files
 set ignorecase                        " Defaults to case insensitive search
 set backspace=indent,eol,start        " (optional) Hack to make the backspace button work
 set hlsearch                          " Highlights all search results
-set pastetoggle=<F2>                  " Toggles paste mode with the F2 key
 set mouse=a                           " Enables scrolling with the mouse
 set noincsearch                       " Disable incremental search (on by default in neovim)
 set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
@@ -91,18 +90,6 @@ nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 augroup GitSpellCheck
     autocmd! Filetype gitcommit setlocal spell textwidth=72
 augroup END
-
-" Map Ctrl+Arrow key to work movement
-map <ESC>Oa <C-Up>
-map <ESC>Ob <C-Down>
-map <ESC>Od <C-Left>
-map <ESC>Oc <C-Right>
-
-" Map Ctrl+Arrow key to work movement in insert mode
-map! <ESC>Oa <C-Up>
-map! <ESC>Ob <C-Down>
-map! <ESC>Od <C-Left>
-map! <ESC>Oc <C-Right>
 
 " Remap n/N to always search forwards/backwards respectively
 nnoremap <expr> n  'Nn'[v:searchforward]
@@ -164,19 +151,6 @@ augroup END
 " ==== Gruvbox (morhetz/gruvbox) ====
 let g:gruvbox_contrast_dark = 'hard'
 silent colorscheme gruvbox
-
-" ==== Easytags (xolox/vim-easytags) ====
-let g:easytags_auto_highlight = 0
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-set cpoptions+=d
-
-" Disable vim-easytag warnings when Universal Ctags is present in place of
-" Exuberant Ctags. A bug in vim-easytags doesn't identify Universal Ctags
-" correctly.
-if (matchstr(execute('!ctags --version'), 'Universal Ctags'))==#'Universal Ctags'
-  let g:easytags_suppress_ctags_warning = 1
-endif
 
 " ==== Bufferline (bling/vim-bufferline) ====
 let g:bufferline_rotate = 1
