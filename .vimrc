@@ -21,9 +21,8 @@ Plug 'dense-analysis/ale'                                  " Asynchronous lint e
 Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
 Plug 'bling/vim-bufferline'                                " Bufferline support
-Plug 'justinmk/vim-sneak'                                  " Lightweight motions
 Plug 'wellle/targets.vim'                                  " More text objects to move to
-Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
+" Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
 Plug 'davidhalter/jedi-vim'                                " Autocompletion (disabled) and jump to definition
 Plug 'majutsushi/tagbar'                                   " Show tags and a tagbar
 Plug 'tpope/vim-surround'                                  " Quoting/parenthesizing made simple
@@ -183,12 +182,6 @@ endif
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -1
 let g:bufferline_echo = 0
-
-" ==== Vim Sneak (justinmk/vim-sneak) ====
-" Press `s` to move to the next match
-let g:sneak#s_next = 1
-map r <Plug>Sneak_s
-map R <Plug>Sneak_S
 
 " ==== Vim Jedi ====
 let g:jedi#completions_enabled = 0
