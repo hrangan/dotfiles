@@ -109,12 +109,8 @@ augroup NERDTreeClose
     \ if (winnr("$") == 1 && exists("b:NERDTree") &&
         \ b:NERDTree.isTabTree()) | q | endif
 augroup END
-" Default arrow icons, replace if necessary
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ==== Fuzzy Finder (junegunn/fzf.vim) ====
-" Replaces fzf command with ag. This ensures .gitignore is respected
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
 nnoremap <Leader>; :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
@@ -125,9 +121,9 @@ let g:ale_linters = {'python': ['pycodestyle', 'flake8'],
 " Checks errors only in normal mode or when leaving insert mode
 " Lint delay can be safely reduced since checking on <CR> is disabled
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 50
+let g:ale_lint_delay = 10
 " Ctrl-j/k to quickly move between issues in a file
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -135,8 +131,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_sign_style_error = '--'
 let g:ale_set_highlights = 1
 augroup ALEColors
-    " Rationale for highlight augroup
-    " https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f
     autocmd!
     autocmd ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
 augroup END
@@ -185,9 +179,5 @@ endfunction
 
 augroup Bufferline
   autocmd VimEnter *
-    \ let &statusline=
-      \ '%{bufferline#refresh_status()}'
-      \ .bufferline#get_status_string()
-      \ .'%='
-      \ .'%{OptionalTagname()}'
+    \ let &statusline= '%{bufferline#refresh_status()}'.bufferline#get_status_string().'%='.'%{OptionalTagname()}'
 augroup END
