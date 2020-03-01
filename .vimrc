@@ -8,7 +8,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   augroup init
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      autocmd! VimEnter * PlugInstall --sync | source $MYVIMRC
   augroup END
 endif
 
@@ -52,7 +52,6 @@ set noincsearch                       " Disable incremental search (on by defaul
 set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
 set scrolloff=10
 " set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
-
 
 " =========================
 " ===== SANITY CHECKS =====
@@ -105,7 +104,7 @@ let NERDTreeIgnore=['\.pyc$']
 nnoremap <Leader>l :NERDTreeToggle<CR>
 " Close vim if only NERDTree is open
 augroup NERDTreeClose
-    autocmd bufenter *
+    autocmd! bufenter *
     \ if (winnr("$") == 1 && exists("b:NERDTree") &&
         \ b:NERDTree.isTabTree()) | q | endif
 augroup END
@@ -131,15 +130,13 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_sign_style_error = '--'
 let g:ale_set_highlights = 1
 augroup ALEColors
-    autocmd!
-    autocmd ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
+    autocmd! ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
 augroup END
 
 " ==== Rainbow Parentheses (junegunn/rainbow_parentheses.vim) ====
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 augroup Rainbow
-    autocmd!
-    autocmd VimEnter * RainbowParentheses
+    autocmd! VimEnter * RainbowParentheses
 augroup END
 
 " ==== Gruvbox (morhetz/gruvbox) ====
@@ -178,6 +175,6 @@ function! OptionalTagname()
 endfunction
 
 augroup Bufferline
-  autocmd VimEnter *
+  autocmd! VimEnter *
     \ let &statusline= '%{bufferline#refresh_status()}'.bufferline#get_status_string().'%='.'%{OptionalTagname()}'
 augroup END
