@@ -50,7 +50,10 @@ set hlsearch                          " Highlights all search results
 set mouse=a                           " Enables scrolling with the mouse
 set noincsearch                       " Disable incremental search (on by default in neovim)
 set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking block
-set scrolloff=10
+set scrolloff=10                      " Scroll the window when within 10 lines of the edge
+set title                             " Change the terminal's title
+set hidden                            " Hide buffers when switching instead of closing
+set showmatch                         " Highlight matching parenthesis
 " set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 " =========================
@@ -177,4 +180,9 @@ endfunction
 augroup Bufferline
   autocmd! VimEnter *
     \ let &statusline= '%{bufferline#refresh_status()}'.bufferline#get_status_string().'%='.'%{OptionalTagname()}'
+augroup END
+
+" Create new .py files prefilled with a hash-bang
+augroup Templates
+    autocmd! BufNewFile *.py execute "normal i#!/usr/bin/env python\r\<Esc>"
 augroup END
