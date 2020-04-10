@@ -53,7 +53,6 @@ set guicursor=a:block-blinkon0        " Hardwires the cursor to a non blinking b
 set scrolloff=10                      " Scroll the window when within 10 lines of the edge
 set title                             " Change the terminal's title
 set hidden                            " Hide buffers when switching instead of closing
-set showmatch                         " Highlight matching parenthesis
 " set clipboard=unnamed,unnamedplus     " All copied text is added to both PRIMARY and CLIPBOARD
 
 " =========================
