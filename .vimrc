@@ -14,9 +14,8 @@ endif
 
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}       " NERDTree
-Plug 'junegunn/fzf', {'do': './install --bin'}             " Fuzzy finder
-    Plug 'junegunn/fzf.vim', {'on': ['Buffers', 'Files']}
+Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}        " NERDTree
+Plug 'kien/ctrlp.vim'                                      " CtrlP fuzzy finder
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
 Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
@@ -59,7 +58,7 @@ set hidden                            " Hide buffers when switching instead of c
 " ===== SANITY CHECKS =====
 " =========================
 if executable('rg')!=1
-    echoerr 'Install ripgrep to enable buffer lists in fzf'
+    echoerr 'Install ripgrep to enable buffer lists in fuzzy searches'
 endif
 
 if !(has('python3') || has('python2'))
@@ -111,10 +110,13 @@ augroup NERDTreeClose
         \ b:NERDTree.isTabTree()) | q | endif
 augroup END
 
-" ==== Fuzzy Finder (junegunn/fzf.vim) ====
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --no-ignore-vcs'
-nnoremap <Leader>; :Buffers<CR>
-nnoremap <Leader>o :Files<CR>
+" ==== Fuzzy Finder (kien/ctrlp.vim) ====
+let g:ctrlp_user_command = 'rg %s --files'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_map = '<Leader>o'
+let g:ctrlp_cmd = 'CtrlPMixed'
+nnoremap <Leader>; :CtrlPBuffer<CR>
 
 " ==== Asynchronous Lint Engine (dense-analysis/ale)====
 let g:ale_linters = {'python': ['pycodestyle', 'flake8'],
