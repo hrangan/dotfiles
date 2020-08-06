@@ -20,7 +20,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Droid Sans Mono for Powerline 12
+font pango:Fira Mono 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -43,7 +43,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -b -i -fn "Droid Sans Mono for Powerline-12" -p ":|:"
+bindsym $mod+space exec dmenu_run -b -i -fn "Fira Mono-10" -p ":|:"
 bindsym $mod+q exec /home/hrangan/.local/bin/lock
 bindsym F12 exec /home/hrangan/.local/bin/uuid
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -93,7 +93,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
