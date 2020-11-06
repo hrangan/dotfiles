@@ -69,12 +69,25 @@ endif
 " ===== EXTRA SETTINGS =====
 " ==========================
 
+" Save undo history
+if !isdirectory($HOME.'/.vim')
+    call mkdir($HOME.'/.vim', '', 0770)
+endif
+if !isdirectory($HOME.'/.vim/undo-dir')
+    call mkdir($HOME.'/.vim/undo-dir', '', 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
+
 " Remap <Leader>
 let mapleader=';'
 
 " Move correctly across long, wrapped lines
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
+
+" Capital Y now yanks till the end of the line
+noremap Y y$
 
 " Displays tabs, trailing spaces, etc
 set list
@@ -102,6 +115,7 @@ nnoremap <expr> N  'nN'[v:searchforward]
 " ==== NERDTree (scrooloose/nerdtree) ====
 let NERDTreeWinPos='left'
 let NERDTreeIgnore=['\.pyc$']
+let NERDTreeCascadeSingleChildDir=0
 nnoremap <Leader>l :NERDTreeToggle<CR>
 " Close vim if only NERDTree is open
 augroup NERDTreeClose
@@ -116,6 +130,7 @@ let g:ctrlp_use_caching = 0
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_map = '<Leader>o'
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_match_window ='max:20'
 nnoremap <Leader>; :CtrlPBuffer<CR>
 
 " ==== Asynchronous Lint Engine (dense-analysis/ale)====
@@ -185,5 +200,5 @@ augroup END
 
 " Create new .py files prefilled with a hash-bang
 augroup Templates
-    autocmd! BufNewFile *.py execute "normal i#!/usr/bin/env python\r\<Esc>"
+    autocmd! BufNewFile *.py execute "normal i#!/usr/bin/env python\r\r\<Esc>"
 augroup END
