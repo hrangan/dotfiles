@@ -13,7 +13,7 @@
     l = log --graph --abbrev-commit --date=relative
     what = whatchanged -p
     df = diff --word-diff=color
-    staged = diff --cached
+    s = diff --cached
 [color]
     branch = auto
     diff = auto
@@ -22,14 +22,21 @@
     status = auto
     pager = true
 [format]
-    pretty="%C(white)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+    pretty="%C(white)%h%Creset - %s %C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an (%ae)>%Creset"
 [core]
-    editor = /usr/bin/vim
+    editor = /usr/local/bin/nvim
     autocrlf = input
-    pager = less -FRSX
+    pager = less -FRX
     whitespace = fix
     excludesfile = /home/hrangan/.gitignore
 [log]
     date = local
 [http]
     sslverify = false
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[diff]
+    tool = vimdiff
