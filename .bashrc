@@ -2,6 +2,8 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+# Disable bash deprecation warnings on BigSur
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Single ssh-agent session
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -41,7 +43,9 @@ fi
 
 # pyenv & pyenv-virtualenv
 if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
     eval "$(pyenv virtualenv-init -)"
 fi
 
