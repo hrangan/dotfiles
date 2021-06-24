@@ -1,2 +1,0 @@
-hardstatus alwayslastline
-hardstatus string '%{= kw}[ %w ]%=%Y-%m-%d %c'
