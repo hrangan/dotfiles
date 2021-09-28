@@ -14,7 +14,7 @@ endif
 
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
-Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}        " NERDTree
+Plug 'preservim/nerdtree', {'on': 'NERDTreeToggleVCS'}        " NERDTree
 Plug 'kien/ctrlp.vim'                                      " CtrlP fuzzy finder
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
 Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
@@ -26,6 +26,7 @@ Plug 'davidhalter/jedi-vim'                                " Autocompletion (dis
 Plug 'majutsushi/tagbar'                                   " Show tags and a tagbar
 Plug 'tpope/vim-surround'                                  " Quoting/parenthesizing made simple
 Plug 'tpope/vim-repeat'                                    " Enable repeating supported plugin maps with .
+Plug 'tpope/vim-fireplace', {'for': 'clojure'}             " Clojure REPL in vim
 call plug#end()
 
 " ==========================
@@ -117,7 +118,7 @@ nnoremap <expr> N  'nN'[v:searchforward]
 let NERDTreeWinPos='left'
 let NERDTreeIgnore=['\.pyc$']
 let NERDTreeCascadeSingleChildDir=0
-nnoremap <Leader>l :NERDTreeToggle<CR>
+nnoremap <Leader>l :NERDTreeToggleVCS<CR>
 " Close vim if only NERDTree is open
 augroup NERDTreeClose
     autocmd! bufenter *
@@ -144,8 +145,8 @@ let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 10
 " Ctrl-j/k to quickly move between issues in a file
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-p> <Plug>(ale_previous_wrap)
+nmap <silent> <C-o> <Plug>(ale_next_wrap)
 " All style errors and warnings are merged into one style
 let g:ale_sign_style_error = '--'
 let g:ale_set_highlights = 1
@@ -171,6 +172,11 @@ let g:bufferline_echo = 0
 " ==== Vim Jedi ====
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 0
+
+" ==== Clojure ====
+let g:clojure_align_multiline_strings = 1
+let g:clojure_align_subforms = 1
+nnoremap <Leader>e :Eval<CR>
 
 " ==========================
 " ==== CUSTOM FUNCTIONS ====
