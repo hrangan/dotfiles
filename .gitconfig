@@ -1,8 +1,8 @@
 [user]
     name = Harshavardhan Rangan
-    email = hvardhan.r@gmail.com
+    email = hrangan@planview.com
 [github]
-    user = hrangan
+    user = hrangan2
 [apply]
     whitespace = fix
 [alias]
@@ -40,3 +40,5 @@
     required = true
 [diff]
     tool = vimdiff
+[init]
+    defaultBranch = master

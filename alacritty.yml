@@ -179,7 +179,7 @@ font:
 colors:
   # Default colors
   primary:
-    background: '0x1d2021'
+    background: '0x1e1e1e'
     foreground: '0xebdbb2'
 
     # Bright and dim foreground colors
@@ -424,7 +424,7 @@ shell:
 
   args:
     - new-session
-#  -A
+#     -A
 #     - -D
 #     - -s
 #     - main

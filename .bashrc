@@ -2,16 +2,39 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# Disable bash deprecation warnings on BigSur
-export BASH_SILENCE_DEPRECATION_WARNING=1
+###############
+# OS SPECIFIC #
+###############
 
-# Single ssh-agent session
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > $HOME/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<$HOME/.ssh-agent-thing)" > /dev/null
-fi
+case "$(uname -s)" in
+
+   Darwin)
+     alias ls='ls -G'
+
+     # Disable bash deprecation warnings on BigSur
+     export BASH_SILENCE_DEPRECATION_WARNING=1
+     ;;
+
+   Linux)
+     alias ls='ls --color=auto'
+
+     # Single ssh-agent session
+     if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+         ssh-agent > $HOME/.ssh-agent-thing
+     fi
+     if [[ "$SSH_AGENT_PID" == "" ]]; then
+         eval "$(<$HOME/.ssh-agent-thing)" > /dev/null
+     fi
+     ;;
+
+   *)
+     echo 'ERROR:.bashrc: Unknown OS, validate configuration manually'
+     ;;
+esac
+
+#############
+# FUNCTIONS #
+#############
 
 # Display count of stopped processes (Ctrl+Z)
 jobscount() {
@@ -19,29 +42,56 @@ jobscount() {
   ((stopped)) && echo -n "(${stopped}) "
 }
 
-# Variables & Paths
-export PS1='[\h] \w $(jobscount)\$ '
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
+
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+PROMPT_COMMAND=timer_stop
+
+notify(){
+    # Reverse the string, so that the trigger doesn't fire when opening this
+    # file
+    echo 'vt78bhiu78t67iu' | rev
+}
+
+#############
+# VARIABLES #
+#############
+
+export EDITOR='nvim'
+export PS1='[\h][${timer_show}s] \w $(jobscount)\$ '
 export PATH=$HOME/.local/bin:$HOME/.local/sbin:$PATH:/sbin
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export BROWSER="w3m"
 export LC_ALL="en_US.UTF-8"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
 
-# Aliases
+###########
+# ALIASES #
+###########
+
 alias p="/usr/bin/env python"
-if [[ `uname -s` == "Darwin" ]]; then
-    alias ls='ls -G'
-else
-    alias ls='ls --color=auto'
-fi
+
 if command -v nvim > /dev/null 2>&1; then
     alias vim="nvim"
 fi
+
 if command -v rg > /dev/null 2>&1; then
     alias ffile='rg --files --hidden --no-ignore-vcs | rg "$@"'
 fi
 
-# pyenv & pyenv-virtualenv
+####################
+# COMMAND SPECIFIC #
+####################
+
 if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
@@ -49,13 +99,22 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
-# Scripts & Functions
 if [ -f $HOME/.git-completion.bash ]; then
     source $HOME/.git-completion.bash
 fi
 
-notify(){
-    # Reverse the string, so that the trigger doesn't fire when opening this
-    # file
-    echo 'vt78bhiu78t67iu' | rev
-}
+if command -v heroku 1>/dev/null 2>&1; then
+    HEROKU_AC_BASH_SETUP_PATH=/Users/hrangan/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+fi
+
+#####################
+# PLANVIEW SPECIFIC #
+#####################
+
+if command -v yarn > /dev/null 2>&1; then
+    alias _y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony'
+    alias y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev --notify'
+fi
+
+[[ -s "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh" ]] && source "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh"
+export USE_COMPOSE=1

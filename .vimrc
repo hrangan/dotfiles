@@ -21,12 +21,12 @@ Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
 Plug 'morhetz/gruvbox'                                     " Gruvbox color scheme
 Plug 'bling/vim-bufferline'                                " Bufferline support
 Plug 'wellle/targets.vim'                                  " More text objects to move to
-" Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
 Plug 'davidhalter/jedi-vim'                                " Autocompletion (disabled) and jump to definition
 Plug 'majutsushi/tagbar'                                   " Show tags and a tagbar
 Plug 'tpope/vim-surround'                                  " Quoting/parenthesizing made simple
 Plug 'tpope/vim-repeat'                                    " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-fireplace', {'for': 'clojure'}             " Clojure REPL in vim
+" Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
 call plug#end()
 
 " ==========================
@@ -83,6 +83,7 @@ set undofile
 
 " Remap <Leader>
 let mapleader=';'
+let maplocalleader=","
 
 " Move correctly across long, wrapped lines
 " nnoremap j gj
