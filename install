@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+case "$(uname -s)" in
+
+   Darwin)
+
+     if ! command -v stow 1>/dev/null 2>&1; then
+         brew install stow
+     fi
+     ;;
+
+   Linux)
+     echo 'ERROR:install: Linux installation steps have not been implemented'
+     ;;
+
+   *)
+     echo 'ERROR:install: Unknown OS, installation steps have not been implemented'
+     ;;
+esac
+
+
+echo 'Symlinking dotfiles...'
+stow dotfiles -t ~/
+echo
+
+echo 'Update user.email and github.user in ~/.gitconfig'
+echo 'Install python packages in requirements.txt'
