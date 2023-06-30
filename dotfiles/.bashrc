@@ -32,6 +32,13 @@ case "$(uname -s)" in
      ;;
 esac
 
+##################
+# INITIALIZATION #
+##################
+
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 #############
 # FUNCTIONS #
 #############
@@ -106,7 +113,16 @@ fi
 #####################
 
 if command -v yarn > /dev/null 2>&1; then
-    export PATH="/usr/local/opt/node@16/bin:$PATH"
+    export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/node@14/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/node@14/include"
     alias y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony'
     alias yd='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev --notify'
 fi
+
+[[ -s "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh" ]] && source "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh"
+export USE_COMPOSE=1
+
+
+### PPDEV INSTALLED - read init script
+[[ -s "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh" ]] && source "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh"

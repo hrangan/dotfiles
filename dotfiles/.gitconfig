@@ -24,7 +24,7 @@
 [format]
     pretty="%C(white)%h%Creset - %s %C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an (%ae)>%Creset"
 [core]
-    editor = /usr/local/bin/nvim
+    editor = nvim
     autocrlf = input
     pager = less -FRX
     whitespace = fix
