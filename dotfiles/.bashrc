@@ -54,12 +54,6 @@ function timer_stop {
 trap 'timer_start' DEBUG
 PROMPT_COMMAND=timer_stop
 
-notify(){
-    # Reverse the string, so that the trigger doesn't fire when opening this
-    # file
-    echo 'vt78bhiu78t67iu' | rev
-}
-
 #############
 # VARIABLES #
 #############
@@ -112,9 +106,7 @@ fi
 #####################
 
 if command -v yarn > /dev/null 2>&1; then
-    alias _y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony'
-    alias y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev --notify'
+    export PATH="/usr/local/opt/node@16/bin:$PATH"
+    alias y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony'
+    alias yd='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev --notify'
 fi
-
-[[ -s "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh" ]] && source "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh"
-export USE_COMPOSE=1

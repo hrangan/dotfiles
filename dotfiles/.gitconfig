@@ -29,6 +29,8 @@
     pager = less -FRX
     whitespace = fix
     excludesfile = /home/hrangan/.gitignore
+    fsmonitor = true
+    untrackedcache = true
 [log]
     date = local
 [http]

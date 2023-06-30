@@ -14,7 +14,7 @@ endif
 
 " Install custom plugins
 call plug#begin('~/.vim/bundles')
-Plug 'preservim/nerdtree', {'on': 'NERDTreeToggleVCS'}        " NERDTree
+Plug 'preservim/nerdtree', {'on': ['NERDTreeToggleVCS', 'NERDTreeFind']}        " NERDTree
 Plug 'kien/ctrlp.vim'                                      " CtrlP fuzzy finder
 Plug 'dense-analysis/ale'                                  " Asynchronous lint engine
 Plug 'junegunn/rainbow_parentheses.vim'                    " Rainbow parentheses
@@ -120,6 +120,7 @@ let NERDTreeWinPos='left'
 let NERDTreeIgnore=['\.pyc$']
 let NERDTreeCascadeSingleChildDir=0
 nnoremap <Leader>l :NERDTreeToggleVCS<CR>
+nnoremap <Leader>k :NERDTreeFind<CR>
 " Close vim if only NERDTree is open
 augroup NERDTreeClose
     autocmd! bufenter *
@@ -145,6 +146,7 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 10
+let g:ale_sign_column_always = 0
 " Ctrl-j/k to quickly move between issues in a file
 nmap <silent> <C-p> <Plug>(ale_previous_wrap)
 nmap <silent> <C-o> <Plug>(ale_next_wrap)
