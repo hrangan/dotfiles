@@ -22,11 +22,12 @@ Plug 'morhetz/gruvbox'                                     " Gruvbox color schem
 Plug 'bling/vim-bufferline'                                " Bufferline support
 Plug 'wellle/targets.vim'                                  " More text objects to move to
 Plug 'davidhalter/jedi-vim'                                " Autocompletion (disabled) and jump to definition
-Plug 'majutsushi/tagbar'                                   " Show tags and a tagbar
+Plug 'preservim/tagbar'                                   " Show tags and a tagbar
 Plug 'tpope/vim-surround'                                  " Quoting/parenthesizing made simple
 Plug 'tpope/vim-repeat'                                    " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-fireplace', {'for': 'clojure'}             " Clojure REPL in vim
-" Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
+Plug 'github/copilot.vim'                                  " Github Copilot
+Plug 'dstein64/vim-startuptime'                            " Startup profiling with :StartupTime
 call plug#end()
 
 " ==========================
@@ -65,6 +66,10 @@ endif
 
 if !(has('python3') || has('python2'))
     echoerr 'jedi-vim needs pynvim installled in python''s site-packages'
+endif
+
+if executable('ctags')!=1
+    echoerr 'Exuberant Ctags needs to be installed to enable tagbar'
 endif
 
 " ==========================
@@ -111,6 +116,8 @@ augroup END
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
+
+autocmd! FileType go set autoindent noexpandtab tabstop=8 shiftwidth=8
 " =========================
 " ==== PLUGIN SETTINGS ====
 " =========================
@@ -153,6 +160,8 @@ nmap <silent> <C-o> <Plug>(ale_next_wrap)
 " All style errors and warnings are merged into one style
 let g:ale_sign_style_error = '--'
 let g:ale_set_highlights = 1
+let g:ale_python_flake8_options = '--max-line-length=200'
+let g:ale_python_pycodestyle_options = '--max-line-length=200'
 augroup ALEColors
     autocmd! ColorScheme * highlight link ALEStyleErrorSign AleWarningSign
 augroup END
@@ -190,7 +199,8 @@ nnoremap <Leader>e :Eval<CR>
 " only show the bufferlist, but <Leader>t toggles the tagname at the right
 " side of the statusline
 nnoremap <Leader>t :call ToggleTagnameInStatus()<CR>
-let g:toggle_tagname = 0
+let g:toggle_tagname = 1
+
 function! ToggleTagnameInStatus()
     let g:toggle_tagname = !g:toggle_tagname
 endfunction

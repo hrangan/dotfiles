@@ -49,17 +49,17 @@ jobscount() {
   ((stopped)) && echo -n "(${stopped}) "
 }
 
-function timer_start {
-  timer=${timer:-$SECONDS}
-}
+# function timer_start {
+#   timer=${timer:-$SECONDS}
+# }
+#
+# function timer_stop {
+#   timer_show=$(($SECONDS - $timer))
+#   unset timer
+# }
 
-function timer_stop {
-  timer_show=$(($SECONDS - $timer))
-  unset timer
-}
-
-trap 'timer_start' DEBUG
-PROMPT_COMMAND=timer_stop
+# trap 'timer_start' DEBUG
+# PROMPT_COMMAND=timer_stop
 
 #############
 # VARIABLES #
@@ -85,27 +85,20 @@ if command -v nvim > /dev/null 2>&1; then
     alias vim="nvim"
 fi
 
-if command -v rg > /dev/null 2>&1; then
-    alias ffile='rg --files --hidden --no-ignore-vcs | rg "$@"'
-fi
-
 ####################
 # COMMAND SPECIFIC #
 ####################
 
 if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-    eval "$(pyenv virtualenv-init -)"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --no-rehash -)"
+    # eval "$(pyenv virtualenv-init --no-rehash -)"
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 
 if [ -f $HOME/.git-completion.bash ]; then
     source $HOME/.git-completion.bash
-fi
-
-if command -v heroku 1>/dev/null 2>&1; then
-    HEROKU_AC_BASH_SETUP_PATH=/Users/hrangan/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
 fi
 
 #####################
@@ -117,11 +110,21 @@ if command -v yarn > /dev/null 2>&1; then
     export LDFLAGS="-L/opt/homebrew/opt/node@14/lib"
     export CPPFLAGS="-I/opt/homebrew/opt/node@14/include"
     alias y='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony'
-    alias yd='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev --notify'
+    alias yd='yarn --cwd /Users/hrangan/sources/main_service/frontend/harmony dev'
 fi
 
 [[ -s "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh" ]] && source "/Users/hrangan/sources/main_service/localenv/ppdev-bash-init.sh"
 export USE_COMPOSE=1
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+export SM_HOST=https://clientauth.one.digicert.com
+export SM_CLIENT_CERT_FILE=~/.digicert/Certificate_pkcs12.p12
+
+export KEYPAIR_ALIAS=key_548295671
+export WATSON_DIR=~/sources/watson
 
 
 ### PPDEV INSTALLED - read init script
