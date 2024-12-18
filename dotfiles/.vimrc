@@ -118,6 +118,9 @@ nnoremap <expr> N  'nN'[v:searchforward]
 
 
 autocmd! FileType go set autoindent noexpandtab tabstop=8 shiftwidth=8
+
+" Clear search highlights when pressing esc
+nnoremap <esc> :noh<return><esc>
 " =========================
 " ==== PLUGIN SETTINGS ====
 " =========================
